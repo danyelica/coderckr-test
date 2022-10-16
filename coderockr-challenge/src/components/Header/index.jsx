@@ -1,17 +1,13 @@
 import "./style.css";
 
-export default function Header() {
+export default function Header({ setOpenContact }) {
   return (
     <section className='header'>
       <h2 className='header__title'>Rockr Blog</h2>
 
       <ul className='header__links'>
-        <li>
-          <a href='/'>Posts</a>
-        </li>
-        <li>
-          <a href='/contact'>Contact</a>
-        </li>
+        <li>Posts</li>
+        <li onClick={() => setOpenContact(true)}>Contact</li>
       </ul>
     </section>
   );
