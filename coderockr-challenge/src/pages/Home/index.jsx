@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import "./App.css";
-import api from "./services/api";
+import "./style.css";
+import api from "../../services/api";
+import Header from "../../components/Header";
 
-export default function App() {
+export default function Home() {
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
@@ -17,6 +18,7 @@ export default function App() {
 
   return (
     <div className='App'>
+      <Header />
       {articles.map((article, index) => (
         <img
           key={article.id}
