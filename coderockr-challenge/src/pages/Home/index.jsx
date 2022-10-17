@@ -22,14 +22,13 @@ export default function Home() {
   }
 
   function handlePostClass(index) {
-    if ((index + 1) % 3 !== 0) {
-      return "posts__post";
-    } else {
+    if ((index + 1) % 3 === 0) {
       if ((index + 1) % 2 === 0) {
-        return "posts__post posts__alone posts--left";
+        return "posts__alone posts--left";
       }
-      return "posts__post posts__alone posts--right";
+      return "posts__alone posts--right";
     }
+    return "";
   }
 
   function handleOpenArticle(id) {
@@ -37,10 +36,13 @@ export default function Home() {
   }
 
   function handlePostImage(index) {
-    if ((index + 1) % 3 !== 0) {
-      return "";
+    if (window.screen.width > 768) {
+      if ((index + 1) % 3 !== 0) {
+        return "";
+      }
+      return "posts--large";
     }
-    return "posts--large";
+    return "";
   }
 
   return (
@@ -52,13 +54,13 @@ export default function Home() {
           {articles.map((article, index) => {
             return (
               <div
-                className={handlePostClass(index)}
+                className={"posts__post " + handlePostClass(index)}
                 key={article.id}
                 onClick={() => handleOpenArticle(article.id)}
               >
                 <img
                   src={article.imageUrl}
-                  className={"post__image" + handlePostImage(index)}
+                  className={"post__image " + handlePostImage(index)}
                 />
                 <div className='post__text'>
                   <p>{article.author}</p>

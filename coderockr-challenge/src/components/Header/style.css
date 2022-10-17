@@ -28,6 +28,27 @@
   font-size: 3.2rem;
 
   list-style-type: none;
+  cursor: pointer;
 
   color: #ffffff;
+}
+
+@media screen and (max-width: 810px) {
+  .header {
+    padding: 30px 20px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .header {
+    padding: 30px 10px;
+  }
+
+  .header__title {
+    line-height: 43px;
+  }
+
+  .header__links {
+    gap: 20px;
+  }
 }

@@ -24,6 +24,8 @@
   position: relative;
   left: 620px;
   top: 10px;
+
+  cursor: pointer;
 }
 
 .contact__container .post__title {
@@ -75,6 +77,8 @@
   max-width: 230px;
   padding: 17px 50px;
 
+  cursor: pointer;
+
   background-color: #2d2d2d;
   color: #ffffff;
   border-radius: 4px;
@@ -82,4 +86,24 @@
 
 .contact__button img {
   margin-right: 30px;
+}
+
+@media screen and (max-width: 810px) {
+  .contact__container {
+    padding: 20px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .contact__container {
+    height: 90%;
+    width: 90%;
+
+    overflow: scroll;
+  }
+
+  .contact__close {
+    left: 90%;
+    z-index: 3;
+  }
 }
