@@ -14,8 +14,11 @@
 }
 
 .contact__container {
+  max-height: 90%;
   max-width: 810px;
   padding: 20px 120px 50px;
+
+  overflow: scroll;
 
   background-color: #ffffff;
 }
