@@ -44,3 +44,24 @@
 
   overflow: hidden;
 }
+
+@media screen and (max-width: 810px) {
+  .article__post {
+    width: 90%;
+  }
+
+  .post__top {
+    display: block;
+    text-align: center;
+  }
+
+  .article__description {
+    margin: 40px 20px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .post__top img {
+    width: 70%;
+  }
+}
