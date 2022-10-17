@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import NextIcon from "../../assets/next-icon.svg";
+import Article from "../../components/Article";
+import Contact from "../../components/Contact";
 import Header from "../../components/Header";
 import api from "../../services/api";
 import "./style.css";
 
 export default function Home() {
   const [articles, setArticles] = useState([]);
-  const [openArticle, setOpenArticle] = useState(false);
+  const [openArticle, setOpenArticle] = useState(null);
   const [openContact, setOpenContact] = useState(false);
 
   useEffect(() => {
@@ -30,6 +32,10 @@ export default function Home() {
     }
   }
 
+  function handleOpenArticle(id) {
+    setOpenArticle(id);
+  }
+
   function handlePostImage(index) {
     if ((index + 1) % 3 !== 0) {
       return "";
@@ -39,28 +45,38 @@ export default function Home() {
 
   return (
     <div className='main'>
-      <Header setOpenContact={setOpenContact} />
+      <Header setOpenArticle={setOpenArticle} setOpenContact={setOpenContact} />
       <br />
-      <section className='posts'>
-        {articles.map((article, index) => {
-          return (
-            <div className={handlePostClass(index)}>
-              <img
-                src={article.imageUrl}
-                className={"post__image" + handlePostImage(index)}
-              />
-              <div className='post__text'>
-                <p className='post__author'>{article.author}</p>
-                <h2 className='post__title'>{article.title}</h2>
-                <section className='post__description'>
-                  {article.article.slice(3)}
-                </section>
-                <img src={NextIcon} className='post__icon' />
+      {!openArticle ? (
+        <section className='posts'>
+          {articles.map((article, index) => {
+            return (
+              <div
+                className={handlePostClass(index)}
+                key={article.id}
+                onClick={() => handleOpenArticle(article.id)}
+              >
+                <img
+                  src={article.imageUrl}
+                  className={"post__image" + handlePostImage(index)}
+                />
+                <div className='post__text'>
+                  <p>{article.author}</p>
+                  <h2 className='post__title'>{article.title}</h2>
+                  <section className='post__description'>
+                    {article.article.slice(3)}
+                  </section>
+                  <img src={NextIcon} className='post__icon' />
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </section>
+            );
+          })}
+        </section>
+      ) : (
+        <Article articles={articles} openArticle={openArticle} />
+      )}
+
+      {openContact && <Contact />}
     </div>
   );
 }
