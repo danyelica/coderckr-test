@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import NextIcon from "../../assets/next-icon.svg";
 import Article from "../../components/Article";
 import Contact from "../../components/Contact";
@@ -8,17 +8,43 @@ import "./style.css";
 
 export default function Home() {
   const [articles, setArticles] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [openArticle, setOpenArticle] = useState(null);
   const [openContact, setOpenContact] = useState(false);
+  const loadMoreRef = useRef(null);
+
+  useEffect(() => {
+    infinityScroll();
+  }, []);
 
   useEffect(() => {
     loadArticles();
-  }, []);
+  }, [currentPage]);
 
   async function loadArticles() {
-    const { data } = await api.get("/articles");
+    const { data } = await api.get(`/articles?_page=${currentPage}`);
 
-    setArticles(data);
+    setArticles([...articles, ...data]);
+  }
+
+  function infinityScroll() {
+    const options = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 1.0,
+    };
+
+    const observer = new IntersectionObserver((entities) => {
+      const target = entities[0];
+
+      if (target.isIntersecting) {
+        setCurrentPage((old) => old + 1);
+      }
+    }, options);
+
+    if (loadMoreRef.current) {
+      observer.observe(loadMoreRef.current);
+    }
   }
 
   function handlePostClass(index) {
@@ -66,13 +92,14 @@ export default function Home() {
                   <p>{article.author}</p>
                   <h2 className='post__title'>{article.title}</h2>
                   <section className='post__description'>
-                    {article.article.slice(3)}
+                    {article.article && article.article.slice(3)}
                   </section>
                   <img src={NextIcon} className='post__icon' />
                 </div>
               </div>
             );
           })}
+          <p ref={loadMoreRef}></p>
         </section>
       ) : (
         <Article articles={articles} openArticle={openArticle} />
