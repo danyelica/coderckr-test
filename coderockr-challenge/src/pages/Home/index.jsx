@@ -76,7 +76,7 @@ export default function Home() {
         <Article articles={articles} openArticle={openArticle} />
       )}
 
-      {openContact && <Contact />}
+      {openContact && <Contact setOpenContact={setOpenContact} />}
     </div>
   );
 }

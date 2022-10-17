@@ -22,12 +22,11 @@
 }
 
 .post__image {
-  width: 320px;
+  max-width: 320px;
 }
 
 .post__text {
   padding: 0 80px;
-
   max-width: 700px;
 }
 
@@ -59,7 +58,7 @@
 }
 
 .posts--large {
-  width: 640px;
+  max-width: 640px;
 }
 
 .posts__alone {
